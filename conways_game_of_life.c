@@ -1,29 +1,31 @@
 //my implementation of game of life in c
 #include <stdio.h>
-
+#include <stdlib.h>
 int main()
 {
-	int grid_w = 7;
-	int grid_h = 7;
+	int grid_w = 128;
+	int grid_h = 128;
 	int grid[grid_h][grid_w];
 	int buffer_grid[grid_h][grid_w];
 
-	int gens = 3;
+	int gens = 100;
 	
 //setting the entire grid and buffer grid to dead cells
 	for (int row = 0; row < grid_h; row++)
 	{
 		for (int col = 0; col < grid_w; col++)
 		{
-			grid[row][col] = 0;
+			grid[row][col] = rand()%2;
 		}
 	}
 
-//making the blinker pattern
+//making the plus pattern
 	grid[3][2] = 1;
 	grid[3][3] = 1;
 	grid[3][4] = 1;
 
+	grid[2][3] = 1;
+	grid[4][3] = 1;
 	int curr_gen = 0;
 
 	while (curr_gen < gens)
@@ -41,15 +43,15 @@ int main()
 		//printing the buffer grid [this is currently there only for debugging,
 		//eventually i'll be either using sdl or writing images 
 		//and then animating them using ffmpeg]
-		for (int row = 0; row < grid_h; row++)
-		{
-			for (int col = 0; col < grid_w; col++)
-			{
-				printf("%d ", buffer_grid[row][col]);
-			}
-			printf("\n");
-		}
-		printf("\n");
+		//for (int row = 0; row < grid_h; row++)
+		//{
+		//	for (int col = 0; col < grid_w; col++)
+		//	{
+		//		printf("%d ", buffer_grid[row][col]);
+		//	}
+		//	printf("\n");
+		//}
+		//printf("\n");
 
 		//iterating over each cell in the grid
 		for (int row = 0; row < grid_h; row++)
@@ -87,6 +89,26 @@ int main()
 
 			}
 		}
+		
+			char name[10];
+			snprintf(name, 10, "%03d.pbm", curr_gen);
+
+			FILE* pbmimg;
+			pbmimg = fopen(name, "wb");
+			 
+		    fprintf(pbmimg, "P1\n"); 
+		  
+		    fprintf(pbmimg, "%d %d\n", grid_w, grid_h); 
+		  
+		    fprintf(pbmimg, "1\n"); 
+		    int count = 0;
+		    for (int row = 0; row < grid_h; row++) {
+		        for (int col = 0; col < grid_w; col++) {
+		            fprintf(pbmimg, "%d ",grid[row][col]);
+		        }
+		        fprintf(pbmimg, "\n");
+		    }
+		    fclose(pbmimg);
 		curr_gen += 1;
 	}
 }
