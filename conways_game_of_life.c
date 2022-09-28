@@ -8,7 +8,7 @@ int main()
 	int grid[grid_h][grid_w];
 	int buffer_grid[grid_h][grid_w];
 
-	int gens = 4;
+	int gens = 100;
 	
 //setting the entire grid and buffer grid to dead cells
 	for (int row = 0; row < grid_h; row++)
@@ -44,7 +44,7 @@ int main()
 
 		//printing the buffer grid [this is currently there only for debugging,
 		//eventually i'll be either using sdl or writing images 
-		//and then animating them using ffmpeg
+		//and then animating them using ffmpeg]
 		for (int row = 0; row < grid_h; row++)
 		{
 			for (int col = 0; col < grid_w; col++)
