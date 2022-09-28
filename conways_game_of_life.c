@@ -8,7 +8,7 @@ int main()
 	int grid[grid_h][grid_w];
 	int buffer_grid[grid_h][grid_w];
 
-	int gens = 100;
+	int gens = 3;
 	
 //setting the entire grid and buffer grid to dead cells
 	for (int row = 0; row < grid_h; row++)
@@ -16,7 +16,6 @@ int main()
 		for (int col = 0; col < grid_w; col++)
 		{
 			grid[row][col] = 0;
-			buffer_grid[row][col] = 0;
 		}
 	}
 
@@ -24,9 +23,6 @@ int main()
 	grid[3][2] = 1;
 	grid[3][3] = 1;
 	grid[3][4] = 1;
-	buffer_grid[3][2] = 1;
-	buffer_grid[3][3] = 1;
-	buffer_grid[3][4] = 1;
 
 	int curr_gen = 0;
 
@@ -79,7 +75,7 @@ int main()
 				}
 
 				//applying the rules for Conway's game of life
-				if ((buffer_grid[row][col] && (1 < n_bors < 4)) || ((!buffer_grid[row][col]) && (n_bors == 3)))
+				if (((buffer_grid[row][col] && ((n_bors == 2) || (n_bors == 3)))) || ((!buffer_grid[row][col]) && (n_bors == 3)))
 				{
 					grid[row][col] = 1;
 				}
