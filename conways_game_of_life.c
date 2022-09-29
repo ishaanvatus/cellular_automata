@@ -3,8 +3,8 @@
 #include <stdlib.h>
 int main()
 {
-	int grid_w = 128;
-	int grid_h = 128;
+	int grid_w = 512;
+	int grid_h = 512;
 	int grid[grid_h][grid_w];
 	int buffer_grid[grid_h][grid_w];
 
@@ -19,15 +19,7 @@ int main()
 		}
 	}
 
-//making the plus pattern
-	grid[3][2] = 1;
-	grid[3][3] = 1;
-	grid[3][4] = 1;
-
-	grid[2][3] = 1;
-	grid[4][3] = 1;
 	int curr_gen = 0;
-
 	while (curr_gen < gens)
 	{
 
@@ -39,20 +31,6 @@ int main()
 				buffer_grid[row][col] = grid[row][col];
 			}
 		}
-
-		//printing the buffer grid [this is currently there only for debugging,
-		//eventually i'll be either using sdl or writing images 
-		//and then animating them using ffmpeg]
-		//for (int row = 0; row < grid_h; row++)
-		//{
-		//	for (int col = 0; col < grid_w; col++)
-		//	{
-		//		printf("%d ", buffer_grid[row][col]);
-		//	}
-		//	printf("\n");
-		//}
-		//printf("\n");
-
 		//iterating over each cell in the grid
 		for (int row = 0; row < grid_h; row++)
 		{
