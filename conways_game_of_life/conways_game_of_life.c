@@ -3,14 +3,18 @@
 #include <stdlib.h>
 int main()
 {
-	int grid_w = 120;
-	int grid_h = 120;
+	int grid_w;
+	int grid_h;
+	printf("grid wxh?\n");
+	scanf("%dx%d", &grid_w, &grid_h);
 	int grid[grid_h][grid_w];
 	int buffer_grid[grid_h][grid_w];
 
-	int gens = 100;
+	int gens;
+	printf("how many generations/ticks to simulate\n");
+	scanf("%d", &gens);
 	
-//setting the entire grid and buffer grid to dead cells
+//setting the entire grid and buffer grid to random state cells
 	for (int row = 0; row < grid_h; row++)
 	{
 		for (int col = 0; col < grid_w; col++)
@@ -67,9 +71,10 @@ int main()
 
 			}
 		}
-		
+			//writing a pbm image
+			//https://en.wikipedia.org/wiki/Netpbm#PBM_example
 			char name[10];
-			snprintf(name, 10, "%03d.pbm", curr_gen);
+			snprintf(name, 10, "%05d.pbm", curr_gen);
 
 			FILE* pbmimg;
 			pbmimg = fopen(name, "wb");
