@@ -12,4 +12,4 @@ or what he calls elementary cellular automata; his research assistant Matthew Co
 
 Conway's Game of life is the most popular example but many other exist like Langton's Ant, Brian's Brain and many more.
 
-Essentialy any rule that's interesting enough while being simple enough (or not) is worth studying as a cellular automaton.
+Essentially any rule that's interesting enough while being simple enough (or not) is worth studying as a cellular automaton.
