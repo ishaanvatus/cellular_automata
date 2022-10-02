@@ -1,6 +1,8 @@
 # Dependencies
 ffmpeg, a linux environment
 
+_P.S you could totally run this on Windows if you can convert the shell script into a bash script_
+
 # Command-line usage
 
 ./animate.sh gif\_width gif\_height scale number\_of\_tick/generations
