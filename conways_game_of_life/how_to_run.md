@@ -1,7 +1,7 @@
 # Dependencies
 ffmpeg, a linux environment
 
-_P.S you could totally run this on Windows if you can convert the shell script into a bash script_
+_P.S you could totally run this on Windows if you can convert the shell script into a bash script, and recompile using a MinGW or something similar_
 
 # Command-line usage
 
