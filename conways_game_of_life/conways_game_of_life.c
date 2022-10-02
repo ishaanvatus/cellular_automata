@@ -1,18 +1,15 @@
 //my implementation of game of life in c
 #include <stdio.h>
 #include <stdlib.h>
-int main()
+int main(int argc, char **argv)
 {
-	int grid_w;
-	int grid_h;
-	printf("grid wxh?\n");
-	scanf("%dx%d", &grid_w, &grid_h);
+	int grid_w = atoi(argv[1]);
+	int grid_h = atoi(argv[2]);
+	int gens = atoi(argv[3]);
+
 	int grid[grid_h][grid_w];
 	int buffer_grid[grid_h][grid_w];
-
-	int gens;
-	printf("how many generations/ticks to simulate\n");
-	scanf("%d", &gens);
+	float heatmap[grid_h][grid_w];
 	
 //setting the entire grid and buffer grid to random state cells
 	for (int row = 0; row < grid_h; row++)
@@ -20,6 +17,7 @@ int main()
 		for (int col = 0; col < grid_w; col++)
 		{
 			grid[row][col] = rand()%2;
+			heatmap[row][col] = 0;
 		}
 	}
 
@@ -62,6 +60,7 @@ int main()
 				if (((buffer_grid[row][col] && ((n_bors == 2) || (n_bors == 3)))) || ((!buffer_grid[row][col]) && (n_bors == 3)))
 				{
 					grid[row][col] = 1;
+					heatmap[row][col] += 1;
 				}
 
 				else
@@ -94,4 +93,22 @@ int main()
 		    fclose(pbmimg);
 		curr_gen += 1;
 	}
+	FILE* pgmimg;
+	pgmimg = fopen("heatmap.pgm", "wb");
+	 
+    fprintf(pgmimg, "P2\n"); 
+  
+    fprintf(pgmimg, "%d %d\n", grid_w, grid_h); 
+  
+    fprintf(pgmimg, "255\n"); 
+    int count = 0, norm;
+    for (int row = 0; row < grid_h; row++) {
+        for (int col = 0; col < grid_w; col++) {
+			norm = (int) ((heatmap[row][col]/(((float) gens))*255.0));
+			norm = 255 - norm;
+            fprintf(pgmimg, "%d ", norm);
+        }
+        fprintf(pgmimg, "\n");
+    }
+    fclose(pgmimg);
 }
