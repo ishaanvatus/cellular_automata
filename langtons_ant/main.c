@@ -1,34 +1,34 @@
 #include <stdio.h>
 #include <stdlib.h>
-#define ALIVE 1
-#define DEAD 0
+
+#define ALIVE 0
+#define DEAD 1
+
 void rotate(int *dx, int *dy, int dir);
 int write_plane(char *filename, int width, int height, unsigned char plane[width][height]);
+
 int main(int argc, char **argv)
 {
     if (argc < 4) {
         fprintf(stderr, "Program Usage: ./main <width> <height> <generations>\n");
         return -1;
     }
-    int width, height, frames;
+
+    int width, height, frames; 
+
+    //random coords just to put the ant somewhere in the top left:
+    int ant_pos_x =  40%width;
+    int ant_pos_y =  40%height;
+    int dx = 0;
+    int dy = -1;
+    unsigned char plane[(width + 8 - 1)/8][height] = {};
+
     width = atoi(argv[1]);
     height = atoi(argv[2]);
     frames = atoi(argv[3]);
-    int ant_pos_x = width/2;
-    int ant_pos_y = height/2;
-    int dx = 1;
-    int dy = 0;
 
-    unsigned char plane[(width + 8 - 1)/8][height] = {};
-    /*
-    for (int row = 0; row < height; row ++) {
-        for (int col = 0; col < (width + 8 - 1)/8; col++) {
-            plane[col][row] = rand()%256;
-        }
-    }
-    */
     for (int frame = 0; frame < frames; frame++) {
-        char filename[17];
+        char filename[31];
         int offset = 7 - ant_pos_x%8;
         unsigned char cell_status = (plane[ant_pos_x/8][ant_pos_y] >> offset) & 0x01;
         if (cell_status == DEAD) {
@@ -43,7 +43,7 @@ int main(int argc, char **argv)
         ant_pos_y += dy;
         ant_pos_x = ant_pos_x%width;
         ant_pos_y = ant_pos_y%height;
-        sprintf(filename, "langton%05d.pbm", frame);
+        sprintf(filename, "./frames/langton%05d.pbm", frame);
         write_plane(filename, width, height, plane);
     }
     return 0;
