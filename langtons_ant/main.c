@@ -15,7 +15,9 @@ int main(int argc, char **argv)
     }
 
     int width, height, frames; 
-
+    width = atoi(argv[1]);
+    height = atoi(argv[2]);
+    frames = atoi(argv[3]);
     //random coords just to put the ant somewhere in the top left:
     int ant_pos_x =  40%width;
     int ant_pos_y =  40%height;
@@ -23,9 +25,6 @@ int main(int argc, char **argv)
     int dy = -1;
     unsigned char plane[(width + 8 - 1)/8][height] = {};
 
-    width = atoi(argv[1]);
-    height = atoi(argv[2]);
-    frames = atoi(argv[3]);
 
     for (int frame = 0; frame < frames; frame++) {
         char filename[31];
