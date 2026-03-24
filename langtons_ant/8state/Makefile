@@ -17,11 +17,11 @@ $(BIN): $(OBJS)
 	$(CC) $(LDFLAGS) -o $@ $^
 
 %.o: %.c
-	$(CC) $(FLAGS) -c -o $@ $^
+	$(CC) $(CFLAGS) -c -o $@ $^
 clean: 
 	rm $(BIN) $(OBJS)
 	rm -rf $(IMG_DIR)
 
 animate:
-	ffmpeg -f image2 -i "$(IMG_DIR)/langton%05d.pam" -vf "scale=3840x2160:flags=neighbor,fps=24" -c:v libx264 -tune animation -preset ultrafast $(VID)
+	ffmpeg -f image2 -i "$(IMG_DIR)/langton%05d.pam" -vf "scale=3840x2160:flags=neighbor,fps=24" -c:v libx264 -crf 10 -tune animation -preset slow $(VID)
 
